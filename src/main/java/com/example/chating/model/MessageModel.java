@@ -1,11 +1,12 @@
 package com.example.chating.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class MessageModel {
+public class MessageModel implements Serializable {
 
 
     ArrayList<MessageContent> MessageModel = new ArrayList<>();

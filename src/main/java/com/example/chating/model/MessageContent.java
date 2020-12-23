@@ -1,6 +1,8 @@
 package com.example.chating.model;
 
-public class MessageContent {
+import java.io.Serializable;
+
+public class MessageContent implements Serializable {
 
     
     private String name, message, timestamp;

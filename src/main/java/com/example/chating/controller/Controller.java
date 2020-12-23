@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 @org.springframework.stereotype.Controller
 public class Controller {
 
+    MessageModel duplicate;
     
     
     @RequestMapping("login")
@@ -34,7 +35,7 @@ try {
         Reader reader = new InputStreamReader(url.openStream());
 
         MessageModel obj = json.fromJson(reader, MessageModel.class);
-
+        duplicate = obj;
         String messageData = "";
 
         for (MessageContent x : obj.getMessageModel()) {
@@ -60,6 +61,10 @@ try {
     public ModelAndView sendMessage(@RequestParam("name") String name,
             @RequestParam("message") String message) throws IOException {
         
+        System.out.println(duplicate.getMessageModel().get(duplicate.getMessageModel().size()-1).getMessage());
+        System.out.println(message);
+        if(duplicate.getMessageModel().get(duplicate.getMessageModel().size()-1).getMessage().contentEquals(message)==false) {
+        
         URL url = null;
         String request =("https://brothers007.herokuapp.com/send?name="+name+"&message="+message).replace(" ", "%20");
         url = new URL(request);
@@ -72,6 +77,7 @@ try {
     System.out.println(e);
     
 }
+        }
         ModelAndView mv = new ModelAndView("dashboard.jsp");
         URL url2 = null;
         url2 = new URL("https://brothers007.herokuapp.com/read");
@@ -82,7 +88,7 @@ try {
         Reader reader2 = new InputStreamReader(url2.openStream());
 
         MessageModel obj = json.fromJson(reader2, MessageModel.class);
-
+        duplicate = obj;
         String messageData = "";
 
         for (MessageContent x : obj.getMessageModel()) {
