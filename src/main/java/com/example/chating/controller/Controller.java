@@ -64,17 +64,42 @@ try {
         String request =("https://brothers007.herokuapp.com/send?name="+name+"&message="+message).replace(" ", "%20");
         url = new URL(request);
         
-        ModelAndView mv = dashboard();
         
 try {
+    java.util.concurrent.TimeUnit.SECONDS.sleep(2);
         Reader reader = new InputStreamReader(url.openStream());
-        
-}catch(IOException e) {
+}catch(Exception e) {
+    System.out.println(e);
     
+}
+        ModelAndView mv = new ModelAndView("dashboard.jsp");
+        URL url2 = null;
+        url2 = new URL("https://brothers007.herokuapp.com/read");
+        Gson json = new Gson();
+try {
+    java.util.concurrent.TimeUnit.SECONDS.sleep(2);
+
+        Reader reader2 = new InputStreamReader(url2.openStream());
+
+        MessageModel obj = json.fromJson(reader2, MessageModel.class);
+
+        String messageData = "";
+
+        for (MessageContent x : obj.getMessageModel()) {
+
+            messageData = messageData + "<br>\n" + "<div id=\"posts\" >\n" + "\n"
+                    + " <img src=\"profile.png\"  width=\"50\" height=\"50\"> <br>\n" + " <span id=\"userName\">  "
+                    + x.getName() + " </span><br>\n" + "<span id=\"text\"> " + x.getMessage() + " </span>\n" + "\n"
+                    + "\n" + "<br><br>"+x.getTimestamp()+"</div>";
+
+        }
+
+        
+        mv.addObject("messages", messageData);
+}catch(Exception e) {
+    System.out.println(e);
     mv = new ModelAndView("error.jsp");
 }
-        
-        
         return mv;
     }
     

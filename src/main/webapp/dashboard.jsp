@@ -26,7 +26,7 @@ position: -webkit-sticky; /* Safari */
   top: 0;
 width: 100%;
 background-color: green;
-height: 70px;
+height: 100px;
 
 }
 
@@ -79,6 +79,14 @@ function lastMessage(){
 window.scrollTo(0,document.body.scrollHeight);
 document.getElementById('name').value= localStorage.getItem("name");
 
+}
+
+window.onload = function() {
+    var reloading = sessionStorage.getItem("reloading");
+    if (reloading) {
+        sessionStorage.removeItem("reloading");
+      lastMessage();
+    }
 }
 
 
