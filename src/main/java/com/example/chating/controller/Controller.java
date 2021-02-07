@@ -29,7 +29,11 @@ public class Controller {
     public ModelAndView dashboard() throws IOException {
         ModelAndView mv = new ModelAndView("dashboard.jsp");
         URL url = null;
-        url = new URL("https://brothers007.herokuapp.com/read");
+        
+        //note your rest api link should be here, I deleted mine
+        
+        
+        url = new URL("https://REST API LINK HERE");
         Gson json = new Gson();
 try {
         Reader reader = new InputStreamReader(url.openStream());
@@ -66,7 +70,9 @@ try {
         if(duplicate.getMessageModel().get(duplicate.getMessageModel().size()-1).getMessage().contentEquals(message)==false) {
         
         URL url = null;
-        String request =("https://brothers007.herokuapp.com/send?name="+name+"&message="+message).replace(" ", "%20");
+        
+        //Note : you must use your own REST API here, I deleted mine
+        String request =("https://your rest api link here/send?name="+name+"&message="+message).replace(" ", "%20");
         url = new URL(request);
         
         
@@ -80,7 +86,7 @@ try {
         }
         ModelAndView mv = new ModelAndView("dashboard.jsp");
         URL url2 = null;
-        url2 = new URL("https://brothers007.herokuapp.com/read");
+        url2 = new URL("https://your own API link /read");
         Gson json = new Gson();
 try {
     java.util.concurrent.TimeUnit.SECONDS.sleep(2);
